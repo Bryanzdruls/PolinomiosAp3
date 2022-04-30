@@ -8,19 +8,52 @@ package Clases;
  *
  * @author goku3
  */
-public class VectorF1 {
+public class Forma1 {
     //Atributos.
     private int Vpf1[], Du, n;
     
      //metodos.
-    public VectorF1(int tam) 
+    public Forma1(int tam)//Constructor 
     {
         n = tam;
         Du=n-1;
         Vpf1 = new int[n];               
+        
     }   
+
+    public int[] getVpf1() {
+        return Vpf1;
+    }
+
+    public int getDu() {
+        return Du;
+    }
+
+    public int getN() {
+        return n;
+    }
+
+    public void setVpf1(int[] Vpf1) {
+        this.Vpf1 = Vpf1;
+    }
+
+    public void setDu(int Du) {
+        this.Du = Du;
+    }
+
+    public void setN(int n) {
+        this.n = n;
+    }
     
-    public VectorF1 sumar(VectorF1 a, VectorF1 b, VectorF1  c)
+    public int getVpf1(int pos) {
+        return Vpf1[pos];
+    }
+    
+    public void setVpf1(int pos, int d) {
+        Vpf1[pos] = d;
+    }
+    
+    public Forma1 sumar(Forma1 a, Forma1 b, Forma1  c)
     {   
         int i=0, k=0,j=0, expA, expB;
         while(i<c.Du)
@@ -54,10 +87,8 @@ public class VectorF1 {
         }
         //Ajustar(c);
         return c;
-    }//Fin suma
-    
-    
-    public VectorF1 Ajustar(VectorF1 a)
+    }//Fin suma  
+    public Forma1 Ajustar(Forma1 a)
     {
         int cont=0, i=1;
         while(i<=a.Du && a.Vpf1[i]==0)
