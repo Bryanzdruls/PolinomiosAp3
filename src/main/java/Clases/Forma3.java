@@ -35,5 +35,49 @@ public class Forma3 {
             end = x;
         }
     }//Fin insertar final
+    
+    public void sumar(Forma3 a, Forma3 b)
+    {
+        Nodo p=a.head,q=b.head;
+        end =null;
+        int c =0;
+        while(p!=null && q!=null)
+        {
+            if(p.getExp()==q.getExp())
+            {
+                c = p.getCoe() + q.getCoe();
+                if (c!=0)
+                {
+                    insertarFinal(c,q.getExp());
+                }
+                p=p.getLiga();
+                q=q.getLiga();
+            }
+            else
+            {
+                if (p.getExp()>q.getExp())
+                {
+                    insertarFinal(p.getCoe(),p.getExp());
+                    p=p.getLiga();
+                }
+                else
+                {
+                    insertarFinal(q.getCoe(),q.getExp());
+                    q=q.getLiga();
+                }
+            }
+            
+        }
+        while (p!=null)
+        {
+            insertarFinal(p.getCoe(),p.getExp());
+            p=p.getLiga();
+        }
+        while (q!=null)
+        {
+            insertarFinal(q.getCoe(),q.getExp());
+            q=q.getLiga();
+        }
+    }//Fin sumar
 }
 
