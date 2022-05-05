@@ -16,13 +16,15 @@ public class PolinomioAp3 {
         Forma2 Pf2 ;
         Forma3 Pf3;
         String [] Vs=ManejoString();
-        int opc = 0, nTerminos=0,MExp=0;
+        int opc = 0, nTerminos=0,MExp=0, coef=0, expo=0;
         int [] Vi = new int[Vs.length];
         for (int i = 0; i < Vi.length; i++) {
             Vi[i]=0;
         }
         do 
-        {
+        {   
+            coef =0;
+            expo=0;
             opc = menu();
              switch (opc) 
              {
@@ -30,41 +32,59 @@ public class PolinomioAp3 {
                     Pf1.ConvertirF1(Vs, Pf1);
                     Pf1.redimensionar(Pf1);
                     //2x^4-2x^5+x-3
-                    opc=0;
                     opc=menuFormas();
                     switch (opc)//operaciones forma 1 the fredi´s favorite structuc 
                     {
-                        case 1://Evaluar polinomio                           
+                        case 1://Evaluar polinomio  
+                            Pf1.evaluarPolinomiof1(Pf1);
                             break;
                         case 2://Sumar 2 polinomios
                             Vs=ManejoString();
                             Pf1_2.ConvertirF1(Vs, Pf1_2);
                             Pf1_2.redimensionar(Pf1_2);
-                            System.out.println("Polinomio f1 2");
+                            System.out.println("\nPolinomio f1 2");
                             Pf1_2.mostrar(Pf1_2);
                             Pf1_3.sumar(Pf1, Pf1_2, Pf1_3);
                             System.out.println("Suma: ");
                             Pf1_3.mostrar(Pf1_3);
                             break;
-                        case 3://Multiplicar 2 terminos                     
-                            break;
-                        case 4://Borrar polinomio aux
+                        case 3://Multiplicar 2 terminos  
+                            Vs=ManejoString();
+                            Pf1_2.ConvertirF1(Vs, Pf1_2);
+                            System.out.println("\nPolinomio f1 2");
+                            Pf1_2.mostrar(Pf1_2);
                             
+                            Pf1_3.multiplicacionF1(Pf1, Pf1_2);
+                            System.out.println("Multiplicacion: ");
+                            Pf1_3.mostrar(Pf1_3);
                             break;
-                        case 5://mostrar.
-                            System.out.println("Impresion forma1:");
-                            Pf1.mostrar(Pf1);
+                        case 4://mostrar.
+                                System.out.println("Impresion forma1:");
+                                Pf1.mostrar(Pf1);
                             break;
-                        case 6://Reconstruir                      
+                        case 5://Reconstruir BUENO
+                                System.out.println("\nReconstruccion: \n");
+                                Pf1.reconstruir();                            
                             break;
-                        case 7://Insertar/borrar termino                        
+                        case 6://Insertar
+                                coef=Integer.parseInt(JOptionPane.showInputDialog("Ingrese el Coeficiente: "));
+                                expo=Integer.parseInt(JOptionPane.showInputDialog("Ingrese el exponente: "));
+                                Pf1.insertarTermino(coef,expo);
                             break;
-                        case 8://Volver                       
+                        case 7://borrar termino
+                                coef=Integer.parseInt(JOptionPane.showInputDialog("Ingrese el Coeficiente: "));
+                                expo=Integer.parseInt(JOptionPane.showInputDialog("Ingrese el exponente: "));
+                                Pf1.borrarTermino(coef, expo);
+                            break;
+                        case 8://Volver                     
+                            break;
+                        case 9://Salir                  
                             break;
                             
                         default:
                             JOptionPane.showMessageDialog(null,"Opcion incorrecta.");
                     }
+                    opc=0;
                     break;
                 case 2://Forma 2
                     //nTerminos= Vs.length/2;
@@ -84,14 +104,14 @@ public class PolinomioAp3 {
                             break;
                         case 3://Multiplicar 2 terminos                     
                             break;
-                        case 4://Borrar polinomio aux
-
+                        case 4:////mostrar.
+                                System.out.println("Impresion forma1:");
+                                Pf1.mostrar(Pf1);
                             break;
-                        case 5://mostrar.
-                            System.out.println("Impresion forma1:");
-                            Pf1.mostrar(Pf1);
+                        case 5:
+                            
                             break;
-                        case 6://Reconstruir                      
+                        case 6://Reconstruir /mostrar en string original                
                             break;
                         case 7://Insertar/borrar termino                        
                             break;
@@ -122,9 +142,7 @@ public class PolinomioAp3 {
                             break;
                         case 8:                           
                             break;
-                        case 9:
-                            
-                            break;
+
                             
                         default:
                             JOptionPane.showMessageDialog(null,"Opcion incorrecta.");
@@ -165,12 +183,11 @@ public class PolinomioAp3 {
                 + "1. Evaluar Polinomio\n"
                 + "2. Sumar 2 polinomios\n"
                 + "3. Multiplicar 2 Polinomio\n"
-                + "4. Borrar Polinomio\n"
-                + "5. Mostrar forma\n"
-                + "6. Reconstruir\n"
-                + "7. Insertar/borrar termino\n"
-                + "8. Volver\n"
-                + "9. Salir\n"
+                + "4. Mostrar forma\n"
+                + "5. Reconstruir\n"
+                + "6. Insertar/borrar termino\n"
+                + "7. Volver\n"
+                + "8. Salir\n"
                 + "Ingrese una opcion: "));
     }
 
@@ -182,7 +199,7 @@ public class PolinomioAp3 {
         System.out.println(sCadena);
         String s = "";
         char[] Vc = sCadena.toCharArray();
-        String[] Vs = new String[Vc.length];
+        String[] Vs = new String[Vc.length+1];
         int j = 0;
         for (int i = 0; i < Vc.length; i++) 
         {
