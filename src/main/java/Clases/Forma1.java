@@ -296,59 +296,121 @@ public class Forma1 {
         }//fin for
         System.out.println("\n");
     }//fin reconstruir.            
-    public void insertarTermino(int coe, int exp)//Por probar
+    public Forma1 insertarTermino(int coe, int exp)//Fredi momento
     {
-        Forma1 aux;
+        Forma1 aux=null;
         int  i=1, expA=0, x=0, pos=0;
-        x=exp-getVpf1(0);
+        x=exp-this.getVpf1(0);
         //2x^2+x+1
-        if(exp > Vpf1[0])
+        if(exp > this.Vpf1[0])
         {
-            aux = new Forma1 (x+getN()); //+1
+            aux = new Forma1 (x+this.getN()); //+1
             aux.Vpf1[0]=exp;
             aux.Vpf1[1]=coe;
-            while(i<=getDu())
+            while(i<=this.getDu())
             {
-                expA=getDu()-i;
-                pos=getDu()-expA+x;
-                aux.Vpf1[pos]=getVpf1(i);
+                expA=this.getDu()-i;
+                pos=this.getDu()-expA+x;
+                aux.Vpf1[pos]=this.getVpf1(i);
                 i++;
             }
+            System.out.println("");
+            System.out.println("El nuevo forma 1 es:");
+            for(i=0; i<=aux.getDu(); i++)
+            {
+                System.out.print("|"+aux.getVpf1(i));
+            }
+            return aux;
         }
         else
         {
-            if(exp==Vpf1[0])
+            for (int j = 0; j < this.getDu(); j++)
             {
-                //buscar y sumar
-                while(i<=getDu())
+                expA=this.getDu()-j;
+                if(expA==exp) //en el caso de que exponen sea igual al grado
                 {
-                    expA=getDu()-i;
-                    if(expA==exp)
+                    //buscar y sumar
+                    while(i<=this.getDu())
                     {
-                        setVpf1(i, getVpf1(i)+coe);
+                        expA=this.getDu()-i;
+                        if(expA==exp)
+                        {
+                            this.setVpf1(i, this.getVpf1(i)+coe);
+                        }
+                        i++;
                     }
-                    i++;
-                }
-            }
-        }
+                    System.out.println("");
+                    System.out.println("El nuevo forma 1 es:");
+                    for(i=0; i<=this.getDu(); i++)
+                    {
+                        System.out.print("|"+this.getVpf1(i));
+                    }
+                 }
+            }      
+            return this;
+        }//FIn else      
     }//Fin Insertar termino
     
-    public void borrarTermino(int coe, int exp)
+    public Forma1 borrarTermino(int coe, int exp)
     {
-        
-    }
-    public void multiplicacionF1(Forma1 a, Forma1 b)//Mala
+        Forma1 aux=null;
+        int  i=1, expA=0, x=0, pos=0;
+        x=exp-this.getVpf1(0);
+        //2x^2+x+1
+        if(exp > this.Vpf1[0])
+        {
+            System.out.println("");
+        }
+        else
+        {
+            for (int j = 0; j < this.getDu(); j++)
+            {
+                expA=this.getDu()-j;
+                if(expA==exp) //en el caso de que exponen sea igual al grado
+                {
+                    //buscar y sumar
+                    while(i<=this.getDu())
+                    {
+                        expA=this.getDu()-i;
+                        if(expA==exp)
+                        {
+                            this.setVpf1(i, this.getVpf1(i)+coe);
+                        }
+                        i++;
+                    }
+                    System.out.println("");
+                    System.out.println("El nuevo forma 1 es:");
+                    for(i=0; i<=this.getDu(); i++)
+                    {
+                        System.out.print("|"+this.getVpf1(i));
+                    }
+                 }
+            }      
+            
+        }//FIn else
+        return this;
+    }//Fin BorrarTermino
+    public Forma1 multiplicacionF1(Forma1 a, Forma1 b)//Mala
     {        
-        int pos;                 
-        setN(a.getN()+ b.getN()-2);
-        setVpf1(0,a.getVpf1(0) + b.getVpf1(0));       
+        int expA=0, expB=0, expR=0, posR=0;
+        int coe;
+        Forma1 c = new Forma1(a.getVpf1(0)+b.getVpf1(0));
         
-        for(int i = 1; i <= a.getDu();i++){
-            for(int j = 1; j <= b.getDu();j++){
-                pos= getDu()-((a.getDu()-i)+(b.getDu()-j));
-                setVpf1(pos, getVpf1(pos)+(a.getVpf1(i)*b.getVpf1(j)));                
+        for (int i = 1; i <(b.getVpf1(0)+2); i++) 
+        {
+            expB=b.getDu()-i;
+            for (int j = 1; j<(a.getVpf1(0)+2); j++) 
+            {
+                expA=a.getDu()-j;
+                expR=expA+expB;
+                c.setN(expR+1);
+                coe=a.getVpf1(j)*b.getVpf1(i);
+                posR=c.getDu()-expR;
+                c.Vpf1[posR]=posR+coe;
             }
-        }        
+        }
+        return c;
+ 
     }//FIn multiplicacion
 
     private void pow() {

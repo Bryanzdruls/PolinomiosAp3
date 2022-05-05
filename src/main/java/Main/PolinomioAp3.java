@@ -14,7 +14,7 @@ public class PolinomioAp3 {
         Forma1 Pf1_3 = new Forma1(20);
         
         Forma2 Pf2 ;
-        Forma3 Pf3;
+        Forma3 Pf3= new Forma3();
         String [] Vs=ManejoString();
         int opc = 0, nTerminos=0,MExp=0, coef=0, expo=0;
         int [] Vi = new int[Vs.length];
@@ -55,7 +55,7 @@ public class PolinomioAp3 {
                             Pf1_2.mostrar(Pf1_2);
                             
                             Pf1_3.multiplicacionF1(Pf1, Pf1_2);
-                            System.out.println("Multiplicacion: ");
+                            System.out.println("Multiplicacion: \n");
                             Pf1_3.mostrar(Pf1_3);
                             break;
                         case 4://mostrar.
@@ -69,7 +69,7 @@ public class PolinomioAp3 {
                         case 6://Insertar
                                 coef=Integer.parseInt(JOptionPane.showInputDialog("Ingrese el Coeficiente: "));
                                 expo=Integer.parseInt(JOptionPane.showInputDialog("Ingrese el exponente: "));
-                                Pf1.insertarTermino(coef,expo);
+                                Pf1 = Pf1.insertarTermino(coef,expo);
                             break;
                         case 7://borrar termino
                                 coef=Integer.parseInt(JOptionPane.showInputDialog("Ingrese el Coeficiente: "));
@@ -90,6 +90,7 @@ public class PolinomioAp3 {
                     //nTerminos= Vs.length/2;
                     //Pf2 = new Forma2(nTerminos*2);
                     opc= menuFormas();
+                    ordenar(Vs);
                     switch (opc)//operaciones forma 1 the fradi´s favorite structuc 
                     {
                         case 1://Evaluar polinomio                           
@@ -123,6 +124,7 @@ public class PolinomioAp3 {
                     }
                     break;
                 case 3://Forma 3
+                    //Pf3.(opc, expo);
                     opc= menuFormas();
                     switch (opc)//operaciones forma 1 the fradi´s favorite structuc 
                     {
@@ -132,7 +134,8 @@ public class PolinomioAp3 {
                             break;
                         case 3:                           
                             break;
-                        case 4:                           
+                        case 4://Mostrar
+                            //Pf3.mostrar(Pf3);
                             break;
                         case 5:                           
                             break;
@@ -141,9 +144,7 @@ public class PolinomioAp3 {
                         case 7:                           
                             break;
                         case 8:                           
-                            break;
-
-                            
+                            break;                         
                         default:
                             JOptionPane.showMessageDialog(null,"Opcion incorrecta.");
                     }
@@ -173,7 +174,7 @@ public class PolinomioAp3 {
         return Integer.parseInt(JOptionPane.showInputDialog("+++MENU+++\n"
                 + "1. Ingresar a Forma 1\n"
                 + "2. Ingresar a Forma 2\n"
-                + "Ingresar a Forma 3\n"
+                + "3. Ingresar a Forma 3\n"
                 + "4.Salir\n" + "Ingrese una opcion: "));
     }//Fin Menu
     
@@ -185,12 +186,52 @@ public class PolinomioAp3 {
                 + "3. Multiplicar 2 Polinomio\n"
                 + "4. Mostrar forma\n"
                 + "5. Reconstruir\n"
-                + "6. Insertar/borrar termino\n"
-                + "7. Volver\n"
-                + "8. Salir\n"
+                + "6. Insertar termino\n"
+                + "7. borrar termino\n"
+                + "8. Volver\n"
+                + "9. Salir\n"
                 + "Ingrese una opcion: "));
     }
-
+    
+    public static String[]ordenar(String[] Vs)
+    {
+        int coe=0,mayorExp=0;
+        int Vi[]= new int[Vs.length];
+        for (int i = 0; Vs[i]!=null; i++)
+        {
+            Vi[i]=Integer.parseInt(Vs[i]);
+        }
+        for (int i = 1; i < Vi.length; i++) 
+        {
+            
+            if (Vi[i]>mayorExp)
+            {
+                mayorExp=Vi[i];
+                coe= Vi[i-1];
+            }
+            else
+            {
+                if (Vi[i]<mayorExp)
+                {
+                    for (int j=0; j < Vi.length-1; j++)
+                    {
+                        if (Vi[j]!=0 )
+                        {
+                            Vi[j]=coe;
+                            Vi[j+1]=mayorExp;                             
+                        }
+                    }
+                }
+            }
+            i++;
+        }
+        System.out.println("XD: \n");
+        for (int i = 0; i<Vi.length; i++)
+        {
+            System.out.print("|"+Vi[i]+"|");
+        }
+        return Vs;
+    }
     public static String[] ManejoString() //MAnejo string.
     {
         
