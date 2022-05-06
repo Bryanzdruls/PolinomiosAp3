@@ -19,59 +19,41 @@ public class Forma3
         head=null;
         end=null;
     }//Fin constructor
-    /*public void InsertarOrdenado(int c, int e)
+
+    public void setHead(Nodo head) {
+        this.head = head;
+    }
+
+    public void setEnd(Nodo end) {
+        this.end = end;
+    }
+
+    public Nodo getHead() {
+        return head;
+    }
+
+    public Nodo getEnd() {
+        return end;
+    }
+    
+    public  Forma3 InsertarFinal(int c, int e, Forma3 a)
     {
-            int sw = 0;
-            Nodo p = head,  q = head,  fin = head;
-            Nodo x = new Nodo();
-            x.setCoe(c);
-            x.setExp(e);
-            if (head == null)
-            {
-                head = x;
-                head.setLiga(x);
-            }
-            else
-            {
-                    do
-                    {
-                            fin = head.getLiga();
-                            if (fin.GetDato() < d && sw == 0)
-                            {
-                                    sw = 1;
-                                    x->Setld(head);
-                                    x->Setli(fin);
-                                    head->Setli(x);
-                                    fin->Setld(x);
-                            }
-                            if (d <= p->GetDato() && sw == 0)
-                            {
-                                    sw = 1;
-                                    if (p == head)
-                                    {
-                                            q = head->Getli();
-                                            x->Setli(q);
-                                            x->Setld(head);
-                                            head->Setli(x);
-                                            head = x;
-                                            q->Setld(head);
-                                            p = q;
-                                            cout << "¡Se inserto el dato correctamente!" << endl;
-                                    }
-                                    else
-                                    {
-                                            p = p->Getli();
-                                            p->Setld(x);
-                                            x->Setli(p);
-                                            x->Setld(q);
-                                            q->Setli(x);
-                                            p = q;
-                                            cout << "¡¡Se inserto el dato correctamente!!" << endl;
-                                    }
-                            }
-                            p = p->Getld();
-                    } while (p != head);
-            }
+        //Nodo x = new Nodo(c,e);
+        Nodo x = new Nodo();
+        x.setCoe(c);
+        x.setExp(e);
+        if(head == null)
+        {
+            head = x;
+            end=x;
+        }
+        else
+        {
+            end.setLiga(x);
+            end = x;
+        }
+        return a;
+    }//Fin insertar ordenado
         public void sumar(Forma3 a, Forma3 b)//Sumar
         {
             Nodo p=a.head,q=b.head;
@@ -84,7 +66,7 @@ public class Forma3
                     c = p.getCoe() + q.getCoe();
                     if (c!=0)
                     {
-                        insertar(c,q.getExp());
+                        InsertarFinal(c,q.getExp(),this);
                     }
                     p=p.getLiga();
                     q=q.getLiga();
@@ -93,32 +75,31 @@ public class Forma3
                 {
                     if (p.getExp()>q.getExp())
                     {
-                        insertarFinal(p.getCoe(),p.getExp());
+                        InsertarFinal(p.getCoe(),p.getExp(),this);
                         p=p.getLiga();
                     }
                     else
                     {
-                        insertarFinal(q.getCoe(),q.getExp());
+                        InsertarFinal(q.getCoe(),q.getExp(),this);
                         q=q.getLiga();
                     }
                 }
-
             }
             while (p!=null)
             {
-                insertarFinal(p.getCoe(),p.getExp());
+                InsertarFinal(p.getCoe(),p.getExp(),this);
                 p=p.getLiga();
             }
             while (q!=null)
             {
-                insertarFinal(q.getCoe(),q.getExp());
+                InsertarFinal(q.getCoe(),q.getExp(),this);
                 q=q.getLiga();
             }
         }//Fin sumar
         public void mostrar(Forma3 a)//Mostrar
         {
             Nodo p=a.head;
-            while (p.getLiga()!=null)
+            while (p!=null)
             {            
                 System.out.print("|"+p.getCoe()+"|"+p.getExp()+"|");   
                 p=p.getLiga();
@@ -128,7 +109,7 @@ public class Forma3
         public void reconstruir(Forma3 a)//Reconstruir
         {
             Nodo p=a.head;      
-        }*/
+        }
     }//Fin class
     
     

@@ -18,7 +18,14 @@ public class Forma2 {
         Du=n-1;
         Vpf2 = new int[n];               
         
-    }   
+    }
+    public Forma2()//Sobrecarga de Constructor 
+    {
+        Du=n-1;
+        Vpf2 = new int[n];               
+        
+    } 
+
 
     public int[] getVpf1() {
         return Vpf2;
