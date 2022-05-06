@@ -168,4 +168,3 @@ public class Forma2 {
         }//Fin for     
     }//Fin mostrar
 }//Fin class
-
