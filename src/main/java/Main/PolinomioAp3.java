@@ -98,6 +98,30 @@ public class PolinomioAp3 {
                     {
                         Vi[j]=Integer.parseInt(Vs[j]); 
                         cont++;
+                        System.out.print("|"+Vi[j]+"|");
+                    }
+                    int auxVi[]= new int[cont], mayor, coe = 0, pos = 0;
+                    for (int i = 1; i < cont; i++) {
+                        mayor=0;
+                        for (int j = 1; j < cont; j++) {
+                            if(Vi[j]>mayor)
+                            {
+                                mayor=Vi[j];
+                                coe=Vi[j-1];
+                                pos=j;
+                                j++;
+                            }
+                        }
+                        auxVi[i-1]=coe;
+                        auxVi[i]=mayor;
+                        Vi[pos]=0;
+                        i++;
+                    }
+                    System.out.println("");
+                    System.out.println("Impresion Vi ordenado: ");
+                    for (int i = 0; i < auxVi.length; i++) {
+
+                        System.out.print("|"+auxVi[i]+"|");
                     }
                     nTerminos= cont/2;
               
@@ -116,10 +140,11 @@ public class PolinomioAp3 {
                             {
                                 Vi[j]=Integer.parseInt(Vs[j]); 
                                 cont++;
+                                
                             }
                             nTerminos= cont/2;
+
                             Pf2_2 = new Forma2(nTerminos*2+1);
-                            Vi=Ordenar_polinomio(Vi);
                             Pf2_2.convertirForma2(Vs, Pf2_2, nTerminos);
                             //Pf2_3.sumar(Pf2, Pf2_2, Pf2_3);
                             System.out.println("Suma: ");
@@ -148,40 +173,51 @@ public class PolinomioAp3 {
                     break;
                 case 3://Forma 3
                     //Pf3.(opc, expo);
-                    
+                    int contf3=0;
                     for(int j=0;Vs[j]!=null;j++)
                     {
-                        Vi[j]=Integer.parseInt(Vs[j]);      
+                        Vi[j]=Integer.parseInt(Vs[j]); 
+                        contf3++;
                     }
-                    Vi=Ordenar_polinomio(Vi);
-                    nTerminos= Vi.length/2;
-                    for(int j=0;j<nTerminos+1;j++)
+                    Vi = new int[contf3];
+                    for(int j=0;Vs[j]!=null;j++)
                     {
-                        Pf3=Pf3.InsertarFinal(Vi[j], Vi[j+1],Pf3);
+                        Vi[j]=Integer.parseInt(Vs[j]); 
+                    }
+                    System.out.println(contf3);
+                    for(int j=0;j<contf3;j++)
+                    {
+                        Pf3.InsertarFinal(Vi[j], Vi[j+1],Pf3);
                         j++;                               
                     }
                     opc= menuFormas();
                     
                     switch (opc)//operaciones forma 1 the fradi´s favorite structuc 
                     {
-                        case 1://Evaluar
-                            
+                        case 1://Evaluar                           
                             break;
                         case 2://Sumar  
                             Vs=ManejoString();
+                            contf3=0;
+                            Vi= new int[Vs.length];
                             for(int j=0;Vs[j]!=null;j++)
                             {
-                                Vi[j]=Integer.parseInt(Vs[j]);      
+                                Vi[j]=Integer.parseInt(Vs[j]); 
+                                contf3++;
                             }
-                            Vi=Ordenar_polinomio(Vi);
-                            nTerminos= Vi.length/2;
-                            for(int j=0;j<nTerminos+1;j++)
+                            Vi = new int[contf3];
+                            for(int j=0;Vs[j]!=null;j++)
                             {
-                                Pf3_2=Pf3_2.InsertarFinal(Vi[j], Vi[j+1],Pf3_2);
+                                Vi[j]=Integer.parseInt(Vs[j]); 
+                            }
+                            System.out.println(contf3);
+                            for(int j=0;j<contf3;j++)
+                            {
+                                Pf3_2.InsertarFinal(Vi[j], Vi[j+1],Pf3_2);
                                 j++;                               
                             }
                             Pf3_3.sumar(Pf3, Pf3_2);
-                            System.out.println("\nSuma: \n");
+                            System.out.println("\n Suma: \n");
                             Pf3_3.mostrar(Pf3_3);
                             break;
                         case 3://multiplicar                     
@@ -189,7 +225,8 @@ public class PolinomioAp3 {
                         case 4://Mostrar
                             Pf3.mostrar(Pf3);
                             break;
-                        case 5://Reconstruir                          
+                        case 5://Reconstruir 
+                            Pf3.reconstruir(Pf3);
                             break;
                         case 6://Insertar                           
                             break;
@@ -247,28 +284,6 @@ public class PolinomioAp3 {
                 + "9. Salir\n"
                 + "Ingrese una opcion: "));
     }
-    
-    public static int[] Ordenar_polinomio(int[] v) 
-    {
-        int i = 2, j = 0;
-        int aex = 0, aco = 0;
-        while (i <= v[0] * 2) {
-            j = 2;
-            while (j <= v[0] * 2) {
-                if (v[j] <= v[i]) {
-                    aex = v[i];
-                    aco = v[i - 1];
-                    v[i] = v[j];
-                    v[i - 1] = v[j - 1];
-                    v[j] = aex;
-                    v[j - 1] = aco;
-                }
-                j = j + 2;
-            }
-            i = i + 2;
-        }
-        return v;
-    }//Fin ordenar
     public static String[] ManejoString() //MAnejo string.
     {
         
