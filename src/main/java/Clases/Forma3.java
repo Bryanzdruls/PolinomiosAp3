@@ -4,6 +4,8 @@
  */
 package Clases;
 
+import java.nio.file.Files;
+
 /**
  *
  * @author goku3
@@ -40,7 +42,7 @@ public class Forma3
     {
         //Nodo x = new Nodo(c,e);
        Nodo x = new Nodo(c, e);
-
+       
         if (head == null) {
             setHead(x);
             setEnd(x);
@@ -80,6 +82,12 @@ public class Forma3
         }
                      
     }//Fin insertar ordenado
+    public Forma3 borrarLista(Forma3 a)
+    {
+        a.head= null;
+        a.end=null;
+        return a;
+    }
     public void sumar(Forma3 a, Forma3 b)//Sumar BUENO
     {
         Nodo p=a.head,q=b.head;
@@ -136,87 +144,44 @@ public class Forma3
     {
         Nodo p=a.head;
         String s="";
-        while(p!=null)
-        {
-            if ((p.getCoe()==1 && p.getExp() ==1)||(p.getCoe()==-1 && p.getExp() ==1))
-            {//para las x independientes
-                if ((p.getCoe()==1 && p.getExp() ==1)&& p.getLiga()!=null) 
-                {
-                    s+="x";
+       while (p != null) {
+            int exp = p.getExp();
+            int coef = p.getCoe();
+            if (exp != 0) {
+                if (coef == 1) {
+                    if (exp != 1) {
+                        s +=  "+" + "x^" + String.valueOf(exp);
+                    } else {
+                        s +="+" + "x";
+                    }
+                } else if (coef == -1) {
+                    if (exp != 1) {
+                        s += "-x^" + String.valueOf(exp);
+                    } else {
+                        s += "-x";
+                    }
+                } else if (coef > 0) {
+                    if (exp != 1) {
+                        s += "+" + String.valueOf(coef) + "x^" + String.valueOf(exp);
+                    } else {
+                        s +="+" + String.valueOf(coef) + "x";
+                    }
+                } else if (coef < 0) {
+                    if (exp != 1) {
+                        s +=String.valueOf(coef) + "x^" + String.valueOf(exp);
+                    } else {
+                        s +=String.valueOf(coef) + "x";
+                    }
                 }
-                else if (p.getCoe()==-1 && p.getExp() ==1)
-                {//para las -x independientes
-                    s+= "-x";
-                }
-                else
-                {
-                    if(p.getLiga()==null)
-                    {
-                        if (p.getCoe() == 1) {//positivo x fin
-                            s+="+x";
-                        }
-                        else if (p.getCoe()==-1) {//negativo x fin
-                            s+="-x";
-                        }
-                    }//fin x final
+            } else {
+                if (coef > 0) {
+                    s += "+" + String.valueOf(coef);
+                } else if (coef < 0) {
+                    s +=String.valueOf(coef);
                 }
             }
-            if ((p.getCoe()!= 0 && p.getExp()==0) && p.getLiga()==null) {
-                if(p.getCoe()>0)//positivo independiente fin
-                {
-                    s+="+"+p.getCoe();
-                }
-                else if (p.getCoe()<0) //negativo independiente fin
-                {
-                    s+="-"+p.getCoe();
-                }
-            }
-            else
-            {
-                if ((p.getCoe()!= 0 && p.getExp()!=0)&&p.getLiga()!=null)
-                {
-                    if (p.getCoe()==1) {
-                        s+="+x^"+p.getExp();//x positiva
-                    }
-                    else if (p.getCoe() == -1) {
-                        s+="-x^"+p.getExp();//x negativa
-                    }
-                    else //-33x^7+218x^2+3x^4+x. -x+37x^4+101-218x^2-x^7
-                    {
-                        if ((p.getCoe() <0))//Termino normal 
-                        {
-                            s+=p.getCoe()+"x^"+p.getExp();//negativo
-                        }
-                        else if((p.getCoe()>0 && p!=head))
-                        {
-                            s+="+"+p.getCoe()+"x^"+p.getExp();//positivo
-                        }
-                        else if ((p.getCoe()>0 && p!=head)) {
-                            s+=p.getCoe()+"x^"+p.getExp();//posivito al principio
-                        }
-                    }    
-                }
-                else
-                {
-                    if (p.getCoe()!=0 && p.getExp()==0 && p.getLiga()!=null)
-                    {//termino independiente
-                        if (p.getCoe() <0)
-                        {//negativo
-                            s+="-"+p.getCoe();
-                        }
-                        else if(p.getCoe()>0 && p!=head)
-                        {
-                            s+="+"+p.getCoe();//termino independiente por ahi
-                        }
-                        else if (p.getCoe()>0 && p!=head) {
-                            s+=p.getCoe();//Termino independiente al principio
-                        }
-                    }                
-                }//fin else
-            }//fin else        
-
-        p=p.getLiga();
-        }//Fin while
+            p = p.getLiga();
+        }
         System.out.println("\n Polinomio Reconstruido: ");
         
         System.out.println(s);

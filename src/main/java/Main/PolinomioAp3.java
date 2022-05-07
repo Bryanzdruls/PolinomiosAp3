@@ -179,11 +179,6 @@ public class PolinomioAp3 {
                         Vi[j]=Integer.parseInt(Vs[j]); 
                         contf3++;
                     }
-                    Vi = new int[contf3];
-                    for(int j=0;Vs[j]!=null;j++)
-                    {
-                        Vi[j]=Integer.parseInt(Vs[j]); 
-                    }
                     System.out.println(contf3);
                     for(int j=0;j<contf3;j++)
                     {
@@ -191,7 +186,6 @@ public class PolinomioAp3 {
                         j++;                               
                     }
                     opc= menuFormas();
-                    
                     switch (opc)//operaciones forma 1 the fradi´s favorite structuc 
                     {
                         case 1://Evaluar                           
@@ -239,6 +233,7 @@ public class PolinomioAp3 {
                         default:
                             JOptionPane.showMessageDialog(null,"Opcion incorrecta.");
                     }
+                    Pf3= Pf3.borrarLista(Pf3);
                     opc=0;
                     break;                   
                 case 4://Salir

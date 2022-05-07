@@ -49,6 +49,5 @@ public class Nodo {
 
     public void setLiga(Nodo liga) {
         this.liga = liga;
-    }
-    
+    }   
 }
