@@ -22,7 +22,7 @@ public class PolinomioAp3 {
         Forma3 Pf3_3= new Forma3();
         
         String [] Vs=ManejoString();
-        int opc = 0, nTerminos=0,MExp=0, coef=0, expo=0;
+        int opc = 0, nTerminos=0,MExp=0, coef=0, expo=0,  sw =0;;
         int [] Vi = new int[Vs.length];
         for (int i = 0; i < Vi.length; i++) {
             Vi[i]=0;
@@ -172,17 +172,21 @@ public class PolinomioAp3 {
                 case 3://Forma 3
                     //Pf3.(opc, expo);
                     int contf3=0;
-                    for(int j=0;Vs[j]!=null;j++)
-                    {
-                        Vi[j]=Integer.parseInt(Vs[j]); 
-                        contf3++;
+                    if (sw ==0) {
+                        for(int j=0;Vs[j]!=null;j++)
+                        {
+                            Vi[j]=Integer.parseInt(Vs[j]); 
+                            contf3++;
+                        }
+                        System.out.println(contf3);
+                        for(int j=0;j<contf3;j++)
+                        {
+                            Pf3.InsertarFinal(Vi[j], Vi[j+1],Pf3);
+                            j++;                               
+                        }
+                        sw=1;
                     }
-                    System.out.println(contf3);
-                    for(int j=0;j<contf3;j++)
-                    {
-                        Pf3.InsertarFinal(Vi[j], Vi[j+1],Pf3);
-                        j++;                               
-                    }
+                    
                     opc= menuFormas();
                     switch (opc)//operaciones forma 1 the fradi´s favorite structuc 
                     {
@@ -217,14 +221,17 @@ public class PolinomioAp3 {
                             break;
                         case 4://Mostrar
                             Pf3.mostrar(Pf3);
+                            //Pf3= Pf3.borrarLista(Pf3);
                             break;
                         case 5://Reconstruir 
                             Pf3.reconstruir(Pf3);
+                            //Pf3= Pf3.borrarLista(Pf3);
                             break;
                         case 6://Insertar 
                             Pf3.insertarTermino(Pf3);
                             break;
-                        case 7://Borrar termino                          
+                        case 7://Borrar termino 
+                            Pf3.borrarTermino(Pf3);
                             break;
                         case 8://Volver                          
                             break;
@@ -235,7 +242,7 @@ public class PolinomioAp3 {
                         default:
                             JOptionPane.showMessageDialog(null,"Opcion incorrecta.");
                     }
-                    Pf3= Pf3.borrarLista(Pf3);
+                    
                     opc=0;
                     break;                   
                 case 4://Salir

@@ -5,6 +5,7 @@
 package Clases;
 
 import java.nio.file.Files;
+import java.util.HashSet;
 import javax.swing.JOptionPane;
 
 /**
@@ -151,6 +152,37 @@ public class Forma3
         c=Integer.parseInt(JOptionPane.showInputDialog("Ingrese el coeficiente: "));
         e=Integer.parseInt(JOptionPane.showInputDialog("Ingrese el exponente: "));
         a.InsertarFinal(c, e, a);
+    }
+    public void borrarTermino(Forma3 a)
+    {
+        Nodo p=a.getHead();
+        Nodo q=p.getLiga();
+        int c=0, e=0, encontro=0;
+        c=Integer.parseInt(JOptionPane.showInputDialog("Ingrese el coeficiente: \n"));
+        e=Integer.parseInt(JOptionPane.showInputDialog("Ingrese el exponente: \n"));
+        while (q!=null)
+        {
+            if(p.getCoe()==c && p.getExp()==e)
+            {
+                a.setHead(p.getLiga());            
+                encontro = 1;
+            }
+            else if(q.getCoe()==c && q.getExp()==e)
+            {
+                q.setLiga(p.getLiga());
+                encontro = 1;
+            }
+            p=p.getLiga();
+            q=q.getLiga();           
+        }
+        if (encontro ==0)
+        {
+            System.out.println("\nEl termino insertado no fue encontrado.");
+        }
+        else
+        {
+            System.out.println("\n El termino fue eliminado correctamente.");
+        }
     }
     public void mostrar(Forma3 a)//Mostrar
     {
