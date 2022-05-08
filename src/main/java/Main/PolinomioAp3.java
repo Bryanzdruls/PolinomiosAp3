@@ -84,9 +84,10 @@ public class PolinomioAp3 {
                             break;
                         case 8://Volver                     
                             break;
-                        case 9://Salir                  
-                            break;
-                            
+                        case 9://Salir
+                            JOptionPane.showMessageDialog(null,"Gracias por utilizar nuestro programa!");
+                            System.exit(0);
+                            break;                          
                         default:
                             JOptionPane.showMessageDialog(null,"Opcion incorrecta.");
                     }
@@ -123,8 +124,7 @@ public class PolinomioAp3 {
 
                         System.out.print("|"+auxVi[i]+"|");
                     }
-                    nTerminos= cont/2;
-              
+                    nTerminos= cont/2;             
                     Pf2 = new Forma2(nTerminos*2+1);
                     Pf2.convertirForma2(Vs, Pf2, nTerminos);//Funciona solo con ordenados
                     opc= menuFormas();
@@ -143,7 +143,6 @@ public class PolinomioAp3 {
                                 
                             }
                             nTerminos= cont/2;
-
                             Pf2_2 = new Forma2(nTerminos*2+1);
                             Pf2_2.convertirForma2(Vs, Pf2_2, nTerminos);
                             //Pf2_3.sumar(Pf2, Pf2_2, Pf2_3);
@@ -156,8 +155,7 @@ public class PolinomioAp3 {
                                 System.out.println("\n Impresion forma2:");
                                 Pf2.mostrar(Pf2);
                             break;
-                        case 5:
-                            
+                        case 5:                           
                             break;
                         case 6://Reconstruir /mostrar en string original                
                             break;
@@ -188,7 +186,8 @@ public class PolinomioAp3 {
                     opc= menuFormas();
                     switch (opc)//operaciones forma 1 the fradi´s favorite structuc 
                     {
-                        case 1://Evaluar                           
+                        case 1://Evaluar   
+                            Pf3.evaluar(Pf3);
                             break;
                         case 2://Sumar  
                             Vs=ManejoString();
@@ -222,13 +221,16 @@ public class PolinomioAp3 {
                         case 5://Reconstruir 
                             Pf3.reconstruir(Pf3);
                             break;
-                        case 6://Insertar                           
+                        case 6://Insertar 
+                            Pf3.insertarTermino(Pf3);
                             break;
                         case 7://Borrar termino                          
                             break;
                         case 8://Volver                          
                             break;
-                        case 9://Salir                   
+                        case 9://Salir  
+                            JOptionPane.showMessageDialog(null,"Gracias por utilizar nuestro programa!");
+                            System.exit(0);
                             break;
                         default:
                             JOptionPane.showMessageDialog(null,"Opcion incorrecta.");

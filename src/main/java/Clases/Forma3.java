@@ -5,6 +5,7 @@
 package Clases;
 
 import java.nio.file.Files;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -88,6 +89,20 @@ public class Forma3
         a.end=null;
         return a;
     }
+    public void evaluar(Forma3 a)
+    {
+        //-x+37x^4+101-218x^2-x^7
+        Nodo p = a.getHead();
+        int x,resul=0;
+        x= Integer.parseInt(JOptionPane.showInputDialog("Ingrese un valor para la X: "));
+        while (p!=null)
+        {
+            resul+=p.getCoe()*(Math.pow(x,p.getExp()));
+            p=p.getLiga();
+        }
+        System.out.println("El resultado es: ");
+        System.out.println(resul);
+    }
     public void sumar(Forma3 a, Forma3 b)//Sumar BUENO
     {
         Nodo p=a.head,q=b.head;
@@ -130,6 +145,13 @@ public class Forma3
             q=q.getLiga();
         }
     }//Fin sumar
+    public void insertarTermino(Forma3 a)
+    {
+        int c=0, e=0;
+        c=Integer.parseInt(JOptionPane.showInputDialog("Ingrese el coeficiente: "));
+        e=Integer.parseInt(JOptionPane.showInputDialog("Ingrese el exponente: "));
+        a.InsertarFinal(c, e, a);
+    }
     public void mostrar(Forma3 a)//Mostrar
     {
         Nodo p=a.head;
@@ -144,47 +166,47 @@ public class Forma3
     {
         Nodo p=a.head;
         String s="";
-       while (p != null) {
-            int exp = p.getExp();
-            int coef = p.getCoe();
-            if (exp != 0) {
-                if (coef == 1) {
-                    if (exp != 1) {
-                        s +=  "+" + "x^" + String.valueOf(exp);
-                    } else {
-                        s +="+" + "x";
-                    }
-                } else if (coef == -1) {
-                    if (exp != 1) {
-                        s += "-x^" + String.valueOf(exp);
-                    } else {
-                        s += "-x";
-                    }
-                } else if (coef > 0) {
-                    if (exp != 1) {
-                        s += "+" + String.valueOf(coef) + "x^" + String.valueOf(exp);
-                    } else {
-                        s +="+" + String.valueOf(coef) + "x";
-                    }
-                } else if (coef < 0) {
-                    if (exp != 1) {
-                        s +=String.valueOf(coef) + "x^" + String.valueOf(exp);
-                    } else {
-                        s +=String.valueOf(coef) + "x";
-                    }
-                }
-            } else {
-                if (coef > 0) {
-                    s += "+" + String.valueOf(coef);
-                } else if (coef < 0) {
-                    s +=String.valueOf(coef);
-                }
-            }
-            p = p.getLiga();
-        }
-        System.out.println("\n Polinomio Reconstruido: ");
-        
-        System.out.println(s);
+        while (p != null) {
+             int exp = p.getExp();
+             int coef = p.getCoe();
+             if (exp != 0) {
+                 if (coef == 1) {
+                     if (exp != 1) {
+                         s +=  "+" + "x^" + String.valueOf(exp);
+                     } else {
+                         s +="+" + "x";
+                     }
+                 } else if (coef == -1) {
+                     if (exp != 1) {
+                         s += "-x^" + String.valueOf(exp);
+                     } else {
+                         s += "-x";
+                     }
+                 } else if (coef > 0) {
+                     if (exp != 1) {
+                         s += "+" + String.valueOf(coef) + "x^" + String.valueOf(exp);
+                     } else {
+                         s +="+" + String.valueOf(coef) + "x";
+                     }
+                 } else if (coef < 0) {
+                     if (exp != 1) {
+                         s +=String.valueOf(coef) + "x^" + String.valueOf(exp);
+                     } else {
+                         s +=String.valueOf(coef) + "x";
+                     }
+                 }
+             } else {
+                 if (coef > 0) {
+                     s += "+" + String.valueOf(coef);
+                 } else if (coef < 0) {
+                     s +=String.valueOf(coef);
+                 }
+             }
+             p = p.getLiga();
+         }
+         System.out.println("\n Polinomio Reconstruido: ");
+
+         System.out.println(s);
     }//Fin reconstruir
 }//Fin class
     
