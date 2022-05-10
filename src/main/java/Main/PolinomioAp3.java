@@ -22,7 +22,7 @@ public class PolinomioAp3 {
         Forma3 Pf3_3= new Forma3();
         
         String [] Vs=ManejoString();
-        int opc = 0, nTerminos=0,MExp=0, coef=0, expo=0,  sw =0;;
+        int opc = 0, nTerminos=0,MExp=0, coef=0, expo=0, sw=0;
         int [] Vi = new int[Vs.length];
         for (int i = 0; i < Vi.length; i++) {
             Vi[i]=0;
@@ -41,10 +41,10 @@ public class PolinomioAp3 {
                     opc=menuFormas();
                     switch (opc)//operaciones forma 1 the fredi´s favorite structuc 
                     {
-                        case 1://Evaluar polinomio  
+                        case 1://Evaluar polinomio  //Bueno
                             Pf1.evaluarPolinomiof1(Pf1);
                             break;
-                        case 2://Sumar 2 polinomios
+                        case 2://Sumar 2 polinomios //malo
                             Vs=ManejoString();
                             Pf1_2.ConvertirF1(Vs, Pf1_2);
                             Pf1_2.redimensionar(Pf1_2);
@@ -54,7 +54,7 @@ public class PolinomioAp3 {
                             System.out.println("Suma: ");
                             Pf1_3.mostrar(Pf1_3);
                             break;
-                        case 3://Multiplicar 2 terminos  
+                        case 3://Multiplicar 2 terminos  //malo
                             Vs=ManejoString();
                             Pf1_2.ConvertirF1(Vs, Pf1_2);
                             System.out.println("\nPolinomio f1 2");
@@ -64,7 +64,7 @@ public class PolinomioAp3 {
                             System.out.println("Multiplicacion: \n");
                             Pf1_3.mostrar(Pf1_3);
                             break;
-                        case 4://mostrar.
+                        case 4://mostrar. //bueno
                                 System.out.println("Impresion forma1:");
                                 Pf1.mostrar(Pf1);
                             break;
@@ -72,22 +72,21 @@ public class PolinomioAp3 {
                                 System.out.println("\nReconstruccion: \n");
                                 Pf1.reconstruir();                            
                             break;
-                        case 6://Insertar
+                        case 6://Insertar //malo
                                 coef=Integer.parseInt(JOptionPane.showInputDialog("Ingrese el Coeficiente: "));
                                 expo=Integer.parseInt(JOptionPane.showInputDialog("Ingrese el exponente: "));
                                 Pf1 = Pf1.insertarTermino(Pf1,coef,expo);
                             break;
-                        case 7://borrar termino
+                        case 7://borrar termino //malo
                                 coef=Integer.parseInt(JOptionPane.showInputDialog("Ingrese el Coeficiente: "));
                                 expo=Integer.parseInt(JOptionPane.showInputDialog("Ingrese el exponente: "));
                                 Pf1.borrarTermino(coef, expo);
                             break;
                         case 8://Volver                     
                             break;
-                        case 9://Salir
-                            JOptionPane.showMessageDialog(null,"Gracias por utilizar nuestro programa!");
-                            System.exit(0);
-                            break;                          
+                        case 9://Salir                  
+                            break;
+                            
                         default:
                             JOptionPane.showMessageDialog(null,"Opcion incorrecta.");
                     }
@@ -174,16 +173,13 @@ public class PolinomioAp3 {
                             break;
                         case 8://Volver                       
                             break;
-                        case 9://Salir 
-                                JOptionPane.showMessageDialog(null,"Gracias por utilizar nuestro programa!");
-                                System.exit(0);
-                            break;     
+
                         default:
                             JOptionPane.showMessageDialog(null,"Opcion incorrecta.");
                     }
                     opc=0;
                     break;
-                case 3://Forma 3
+                 case 3://Forma 3
                     //Pf3.(opc, expo);
                     int contf3=0;
                     if (sw ==0) {
@@ -231,7 +227,29 @@ public class PolinomioAp3 {
                             System.out.println("\n Suma: \n");
                             Pf3_3.mostrar(Pf3_3);
                             break;
-                        case 3://multiplicar                     
+                        case 3://multiplicar
+                            Vs=ManejoString();
+                            contf3=0;
+                            Vi= new int[Vs.length];
+                            for(int j=0;Vs[j]!=null;j++)
+                            {
+                                Vi[j]=Integer.parseInt(Vs[j]); 
+                                contf3++;
+                            }
+                            Vi = new int[contf3];
+                            for(int j=0;Vs[j]!=null;j++)
+                            {
+                                Vi[j]=Integer.parseInt(Vs[j]); 
+                            }
+                            System.out.println(contf3);
+                            for(int j=0;j<contf3;j++)
+                            {
+                                Pf3_2.InsertarFinal(Vi[j], Vi[j+1],Pf3_2);
+                                j++;                               
+                            }
+                            Pf3_3.multiplicar(Pf3, Pf3_2);
+                            System.out.println("\n Multiplicacion: \n");
+                            Pf3_3.mostrar(Pf3_3);
                             break;
                         case 4://Mostrar
                             Pf3.mostrar(Pf3);
@@ -255,10 +273,9 @@ public class PolinomioAp3 {
                             break;
                         default:
                             JOptionPane.showMessageDialog(null,"Opcion incorrecta.");
-                    }
-                    
+                    }                   
                     opc=0;
-                    break;                   
+                    break;                                   
                 case 4://Salir
                     JOptionPane.showMessageDialog(null,"Gracias por utilizar nuestro programa!");
                     break;
@@ -302,6 +319,28 @@ public class PolinomioAp3 {
                 + "9. Salir\n"
                 + "Ingrese una opcion: "));
     }
+    
+    public static int[] Ordenar_polinomio(int[] v) 
+    {
+        int i = 2, j = 0;
+        int aex = 0, aco = 0;
+        while (i <= v[0] * 2) {
+            j = 2;
+            while (j <= v[0] * 2) {
+                if (v[j] <= v[i]) {
+                    aex = v[i];
+                    aco = v[i - 1];
+                    v[i] = v[j];
+                    v[i - 1] = v[j - 1];
+                    v[j] = aex;
+                    v[j - 1] = aco;
+                }
+                j = j + 2;
+            }
+            i = i + 2;
+        }
+        return v;
+    }//Fin ordenar
     public static String[] ManejoString() //MAnejo string.
     {
         

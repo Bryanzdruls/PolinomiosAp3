@@ -240,8 +240,46 @@ public class Forma3
 
          System.out.println(s);
     }//Fin reconstruir
+    public Forma3 multiplicar(Forma3 a, Forma3 b)
+        {
+            int v1[] = new int [a.getHead().getExp()* b.getHead().getExp()*2];
+            int suma, i=0;
+            Forma3 c = new Forma3();
+            Nodo p1 = a.getHead(), p2 = b.getHead();
+            while(p1!= null)
+            {
+                p2 = b.getHead();
+                while(p2!=null){
+                    v1[i]=p2.getCoe()*p1.getCoe();
+                    v1[i+1]=p2.getExp()+p2.getExp();
+                    i=i+2;
+                    p2 = p2.getLiga();
+                }
+                p1=p1.getLiga();
+            }
+            int v2[] = new int[i], p = 0;
+            int expM = a.getHead().getExp() + b.getHead().getExp();
+            for (int k = expM; k >= 0; k--) {
+                suma = 0;
+                for (int j = 1; j <= i; j = j + 2) {
+                    if (i == v1[j]) {
+                        suma = suma + v1[j - 1];
+                    }
+                }
+                v2[p] = suma;
+                v2[p + 1] = k;
+                p = p + 2;
+            }
+            Forma3 list = new Forma3();
+            int l = 1;
+            while (l <= p - 1) {
+                if (v2[l - 1] != 0) {
+                    list.InsertarFinal(v2[l - 1], v2[l], list);
+                }
+                l = l + 2;
+            }
+
+            return c;
+      
+        }//Fin multiplicar
 }//Fin class
-    
-    
-
-

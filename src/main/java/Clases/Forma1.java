@@ -61,6 +61,10 @@ public class Forma1 {
     public void setVpf1(int pos, int d) {
         Vpf1[pos] = d;
     }
+    public void dimensionar(int tam)
+    {
+        Vpf1=new int [tam];
+    }
     public  Forma1 ConvertirF1(String Vs[], Forma1 pf1)//convertir BUENO
     {     
         int i = 0 ,Grado=0, K=0 , Pos , h=0 ;   
@@ -124,46 +128,31 @@ public class Forma1 {
    
     public Forma1 sumar(Forma1 a, Forma1 b, Forma1  c)//MALO
     {   
-        int i=1, k=1,j=1, expA, expB;
-        if (a.getDu()<b.getDu())
-        {
-            c.Du=b.Du;
-            c.setVpf1(0,c.getDu()-1);
+        int j=1, exMayor, exMenor, expA, expB;
+        Forma1 mayor, menor;
+        if (a.getDu()>b.getDu()) {
+            mayor = a;
+            menor =b;
+        } else{
+            mayor = b;
+            menor = a;
         }
-        else
+        c.dimensionar(mayor.getDu()+1);
+        c.setDu(mayor.getDu());
+        exMayor=mayor.getDu()-2;
+        exMenor=menor.getDu()-2;
+        c.setVpf1(0, exMayor);
+        for (int i = 1; i < mayor.getDu(); i++)
         {
-            if (b.getDu()<a.getDu())
-            {
-                c.setDu(a.getDu());
-                c.setVpf1(0,c.getDu()-1);
-            }
-        }
-        while(k<=c.getDu())
-        {   
-            expA=a.getDu()-i;
-            expB=b.getDu()-j;
-            if(expA==expB)
-            {
-                c.setVpf1(k,a.getVpf1(i)+b.getVpf1(j));
-                i++;
-                j++;
-                k++;
-            }
-            else
-            {
-                if(expA>expB)
-                {
-
-                    c.setVpf1(k, a.getVpf1(i));
-                    i++;
-                    k++;
-                }
-                else
-                {
-                    c.setVpf1(k, b.getVpf1(j));
-                    i++;
-                    k++;
-                }
+            if (exMayor>exMenor) {
+                c.setVpf1(i, mayor.getVpf1(i));
+                exMayor = exMayor-1;
+            
+            }else{
+            c.setVpf1((menor.getVpf1(j)+menor.getVpf1(i)), i);
+            exMayor =exMayor -1;
+            exMenor = exMenor -1;
+            j=j+1;
             }
         }
         c.Ajustar(c);
@@ -374,4 +363,3 @@ public class Forma1 {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }//Fin class
-
