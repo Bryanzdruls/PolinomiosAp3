@@ -93,7 +93,7 @@ public class PolinomioAp3 {
                     }
                     opc=0;
                     break;
-                case 2://Forma 2
+                 case 2://Forma 2
                     int cont=0;
                     for(int j=0;Vs[j]!=null;j++)
                     {
@@ -102,50 +102,38 @@ public class PolinomioAp3 {
                         System.out.print("|"+Vi[j]+"|");
                     }
                     int auxVi[]= new int[cont], mayor, coe = 0, pos = 0;
-                    for (int i = 1; i < cont; i++) {
-                        mayor=0;
-                        for (int j = 1; j < cont; j++) {
-                            if(Vi[j]>mayor)
-                            {
-                                mayor=Vi[j];
-                                coe=Vi[j-1];
-                                pos=j;
-                                j++;
-                            }
-                        }
-                        auxVi[i-1]=coe;
-                        auxVi[i]=mayor;
-                        Vi[pos]=0;
-                        i++;
-                    }
-                    System.out.println("");
-                    System.out.println("Impresion Vi ordenado: ");
-                    for (int i = 0; i < auxVi.length; i++) {
-
-                        System.out.print("|"+auxVi[i]+"|");
-                    }
+                    
                     nTerminos= cont/2;             
                     Pf2 = new Forma2(nTerminos*2+1);
-                    Pf2.convertirForma2(Vs, Pf2, nTerminos);//Funciona solo con ordenados
+                    Pf2.convertirForma2(Vs, Pf2, nTerminos);
                     opc= menuFormas();
                     switch (opc)//operaciones forma 1 the fradi´s favorite structuc 
                     {
                         case 1://Evaluar polinomio 
-                            Pf2.evaluar(Pf2);
+                            Pf2.evaluar(Pf2, cont);
                             break;
                         case 2://Sumar 2 polinomios
                             Vs=ManejoString();
-                            cont = 0; nTerminos=0;
+                            int []vi2 = new int[Vs.length];
+                            int cont2 = 0, nTerminos2=0;
                             for(int j=0;Vs[j]!=null;j++)
                             {
-                                Vi[j]=Integer.parseInt(Vs[j]); 
-                                cont++;
-                                
+                                vi2[j]=Integer.parseInt(Vs[j]); 
+                                cont2++;
                             }
-                            nTerminos= cont/2;
-                            Pf2_2 = new Forma2(nTerminos*2+1);
+                            nTerminos= cont2/2;
                             Pf2_2.convertirForma2(Vs, Pf2_2, nTerminos);
-                            //Pf2_3.sumar(Pf2, Pf2_2, Pf2_3);
+                            if(nTerminos>=nTerminos2)
+                            {
+                                Pf2_3 = new Forma2(nTerminos*2+1);
+                                Pf2_3.setVpf2(0, nTerminos);
+                            }
+                            else
+                            {
+                                Pf2_3=new Forma2(nTerminos2*2+1);
+                                Pf2_3.setVpf2(0, nTerminos2);
+                            }
+                            Pf2_3.sumar(Pf2, Pf2_2, Pf2_3, cont, cont2, nTerminos, nTerminos2);
                             System.out.println("Suma: ");
                             Pf2_3.mostrar(Pf2_3);
                             break;
@@ -155,15 +143,41 @@ public class PolinomioAp3 {
                                 System.out.println("\n Impresion forma2:");
                                 Pf2.mostrar(Pf2);
                             break;
-                        case 5:                           
+                        case 5: // reconstruir
+                            System.out.println("\nEl polinomio recontruido y organizado es: ");
+                            Pf2.reconstruir();
+                            System.out.println("\nEl polinomio en forma 2 es: ");
+                            Pf2.mostrar(Pf2);
                             break;
-                        case 6://Reconstruir /mostrar en string original                
+                        case 6: //insertar termino
+                            int coe2=0, expo2=0;
+                            coe2=Integer.parseInt(JOptionPane.showInputDialog("Ingrese el Coeficiente: "));
+                            expo2=Integer.parseInt(JOptionPane.showInputDialog("Ingrese el exponente: "));
+                            int contI=0,i=0, n;
+                            for(int j=0;Vs[j]!=null;j++)
+                            {
+                                Vi[j]=Integer.parseInt(Vs[j]); 
+                                contI++;
+                                System.out.print("|"+Vi[j]+"|");
+                            }
+                            int Vi2[]= new int[contI];
+
+                            n= contI/2;             
+                            Pf2_2 = new Forma2(n*2+1);
+                            Pf2_2.convertirForma2(Vs, Pf2, n);
+                            Pf2.setVpf2(0, n+nTerminos);
+                            Pf2.setN(n*2);
+                            Pf2_2.insertarF2(coe2, expo2);
+                            Pf2_2.mostrar(Pf2_2);
                             break;
-                        case 7://Insertar/borrar termino                        
+                        case 7:                        
                             break;
                         case 8://Volver                       
                             break;
-
+                        case 9://Salir 
+                                JOptionPane.showMessageDialog(null,"Gracias por utilizar nuestro programa!");
+                                System.exit(0);
+                            break;     
                         default:
                             JOptionPane.showMessageDialog(null,"Opcion incorrecta.");
                     }

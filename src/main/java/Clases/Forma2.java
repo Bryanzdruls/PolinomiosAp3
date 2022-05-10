@@ -1,15 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Clases;
 
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author goku3
- */
 public class Forma2 {
     //Atributos.
     private int Vpf2 [], Du, n;
@@ -73,7 +65,6 @@ public class Forma2 {
             aux[j]=Integer.parseInt(Vs[i]);
             i++;
         }
-        
         i=1; j=0;
         while(i<aux.length)
         {
@@ -105,43 +96,29 @@ public class Forma2 {
                 i++;
             }
             j=j+2;
+            if(j>aux.length)
+            {
+                j=1;
+            }
         }
         return a;
     }
     
-    public void evaluar(Forma2 a)
+    public void evaluar(Forma2 a, int cont)
     {
-        int resul=0, i=0, x=0, exp;
+        int resul=0, i=2, x=0;
         x=Integer.parseInt((JOptionPane.showInputDialog(null, "Ingrese un valor para x: ")));
-        while (i<=a.getDu()) 
-        {   
-            exp=a.getDu()-i;
-            if(a.getVpf2(i)==1 &&a.getVpf2(i)==-1)
-            {
-                resul+=x;
-            }       
-            if(exp==0)
-            {
-                resul+= a.getVpf2(i);
-            }
-            else
-            {
-                resul+=((Math.pow(x,a.getVpf2(i))*a.getVpf2(i)));
-            }
-            
-            i++;
+        
+        while(i<=cont+1)
+        {
+            resul=(int)(Math.pow(x, a.getVpf2(i)))*a.getVpf2(i-1)+resul;
+            i=i+2;
         }
+       
         System.out.println("El resultado es: ");
         System.out.print(resul);
     }//Fin evaluar 
-    /*    public Forma2 sumar(Forma2 a, Forma2 b, Forma2  c)
-    {
-    
-    }//Fin suma
-    public Forma2 multiplicacion(Forma2 a, Forma2 b, Forma2 c)
-    {
-    
-    }*/
+  
     public Forma2 Ajustar(Forma2 a)
     {
         int cont=0, i=1;
@@ -167,4 +144,123 @@ public class Forma2 {
             System.out.print("|" + a.getVpf2(i));
         }//Fin for     
     }//Fin mostrar
+    
+    public Forma2 sumar(Forma2 a, Forma2 b, Forma2 c, int cont, int cont2, int nTerminos, int nTerminos2)
+    {
+        int i=2, j=2, k=1;
+       
+        while(i<cont+1)
+        {
+            while(j<cont2+1)
+            {
+                if(a.getVpf2(i) == b.getVpf2(j))
+                {
+                    c.setVpf2(k, a.getVpf2(i-1) + b.getVpf2(j-1));
+                    c.setVpf2(k, a.getVpf2(i));
+                    i=i+2;
+                    j=j+2;
+                    k++;
+                }
+                else
+                {
+                   j=j+2;
+                }
+            }
+            
+        }
+        
+        return c;
+    }
+   
+    public Forma2 insertarF2(int coe, int exp)
+    {
+        int k=1, j;
+        while((k<getVpf2(0)*2+1) &&(getVpf2(k)>exp) && (getVpf2(k+1) !=0))
+        {
+            k=k+2;
+        }
+        if((k<getVpf2(0)*2+1)&& (getVpf2(k)== exp) && (getVpf2(k+1) != 0))
+        {
+            System.out.println("El termino ya existe"); // se suma
+        }
+        else
+        {
+            for (j = getVpf2(0)*2-1; j>k; j--) 
+            {
+                setVpf2(j+1, getVpf2(j-1));
+            }
+            setVpf2(k, exp);
+           setVpf2(k+1, coe);
+        }
+        setVpf2(Vpf2);
+        return this;
+    }
+
+    public void reconstruir()
+    {
+            for (int i = 1; i < Vpf2.length-1; i+=2) 
+            {
+                if(Vpf2[i] != 0 )
+                {  
+                    if (Vpf2[i+1]==0) 
+                    {
+                        if (Vpf2[i]<0) 
+                        {
+                            System.out.print(Vpf2[i]);
+                        }
+                        else
+                        {
+                            if(i==1 && Vpf2[i]>=0)
+                            {
+                                System.out.print(Vpf2[i]);
+                            }
+                            else
+                            {
+                                System.out.print("+"+Vpf2[i]);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if(Vpf2[i+1] ==1 )
+                        {
+                            if (Vpf2[i]<0) 
+                            {
+                                System.out.print(Vpf2[i]+"x");
+                            }
+                            else
+                            {   
+                                System.out.print("+"+Vpf2[i]+"x");
+                            }
+                        }
+                        else
+                        {
+                            if(Vpf2[i+1]<0)
+                            {
+                                System.out.print(Vpf2[i]+"x"+"^"+Vpf2[i+1]);
+                            }
+                            else
+                            {
+                                if(i==1 && Vpf2[i]>0)
+                                {
+                                    System.out.print(Vpf2[i]+"x"+"^"+Vpf2[i+1]);
+                                }
+                                else
+                                {
+                                    if(i==1 && Vpf2[i]<0)
+                                    {    
+                                        System.out.print(Vpf2[i]+"x"+"^"+Vpf2[i+1]);
+                                    }
+                                    else
+                                    {
+                                        System.out.print("+"+Vpf2[i]+"x"+"^"+Vpf2[i+1]);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            this.setVpf2(Vpf2);
+    }
 }//Fin class
