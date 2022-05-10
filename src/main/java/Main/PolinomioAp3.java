@@ -150,24 +150,18 @@ public class PolinomioAp3 {
                             break;
                         case 6: //insertar termino
                             int coe2=0, expo2=0;
-                            coe2=Integer.parseInt(JOptionPane.showInputDialog("Ingrese el Coeficiente: "));
-                            expo2=Integer.parseInt(JOptionPane.showInputDialog("Ingrese el exponente: "));
-                            int contI=0,i=0, n;
-                            for(int j=0;Vs[j]!=null;j++)
+                            if (Pf2.getDu() != 0) 
                             {
-                                Vi[j]=Integer.parseInt(Vs[j]); 
-                                contI++;
-                                System.out.print("|"+Vi[j]+"|");
+                                coe2=Integer.parseInt(JOptionPane.showInputDialog("Ingrese el Coeficiente: "));
+                                expo2=Integer.parseInt(JOptionPane.showInputDialog("Ingrese el exponente: "));
+                                if (coe2 != 0) {
+                                    Pf2=Pf2.insertarF2(Pf2, expo2, coe2);
+                                } else {
+                                    System.out.println("No se puede poner en 0 un coeficiente para ello proecda a elimianarlo");
+                                }
+                                } else {
+                                System.out.println("El polinomio esta vacio.");
                             }
-                            int Vi2[]= new int[contI];
-
-                            n= contI/2;             
-                            Pf2_2 = new Forma2(n*2+1);
-                            Pf2_2.convertirForma2(Vs, Pf2, n);
-                            Pf2.setVpf2(0, n+nTerminos);
-                            Pf2.setN(n*2);
-                            Pf2_2.insertarF2(coe2, expo2);
-                            Pf2_2.mostrar(Pf2_2);
                             break;
                         case 7:                        
                             break;

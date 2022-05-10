@@ -262,5 +262,20 @@ public class Forma2 {
                 }
             }
             this.setVpf2(Vpf2);
-    }
+    }//fin reconstruir
+    public Forma2 insertarF2(Forma2 pol2, int expMo, int coeficien)
+    {
+        int val = 0;
+        for (int i = 2; i <= pol2.getDu(); i = i + 2) {
+            if (pol2.getVpf2(i) == expMo) {
+                pol2.setVpf2(coeficien, i - 1);
+                val = 1;
+            }
+        }
+        if (val == 0) {
+            System.out.println("El polinomio no tiene ese exponente.");
+        }
+        setVpf2(pol2.getVpf2());
+        return pol2;
+    }//Insertar forma 2
 }//Fin class
