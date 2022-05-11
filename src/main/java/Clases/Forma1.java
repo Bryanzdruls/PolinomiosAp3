@@ -126,36 +126,45 @@ public class Forma1 {
         System.out.println("\nEl resultado del polinomio evaluado es: \n"+resul);
     }//Evaluar polinomio
    
-    public Forma1 sumar(Forma1 a, Forma1 b, Forma1  c)//MALO
+    public Forma1 sumar(Forma1 a, Forma1 b)//bueno
     {   
-        int j=1, exMayor, exMenor, expA, expB;
-        Forma1 mayor, menor;
-        if (a.getDu()>b.getDu()) {
-            mayor = a;
-            menor =b;
-        } else{
-            mayor = b;
-            menor = a;
-        }
-        c.dimensionar(mayor.getDu()+1);
-        c.setDu(mayor.getDu());
-        exMayor=mayor.getDu()-2;
-        exMenor=menor.getDu()-2;
-        c.setVpf1(0, exMayor);
-        for (int i = 1; i < mayor.getDu(); i++)
+        int expA=0, expB=0, i=1, j=1, k=1;
+        Forma1 c = new Forma1(a.getDu()+b.getDu()+2);
+        if(a.getVpf1(0)>b.getVpf1(0))
         {
-            if (exMayor>exMenor) {
-                c.setVpf1(i, mayor.getVpf1(i));
-                exMayor = exMayor-1;
-            
-            }else{
-            c.setVpf1((menor.getVpf1(j)+menor.getVpf1(i)), i);
-            exMayor =exMayor -1;
-            exMenor = exMenor -1;
-            j=j+1;
-            }
+            c.setVpf1(0, a.getVpf1(0));
         }
-        c.Ajustar(c);
+        else
+        {
+            c.setVpf1(0, b.getVpf1(0));
+        }
+        while(k< c.getN())
+        {
+           expA=a.getDu()-i;
+           expB=b.getDu()-j;
+           if(expA==expB)
+           {
+               c.setVpf1(k, a.getVpf1(i)+b.getVpf1(j));
+               i++;
+               j++;
+               k++;
+           }
+           else
+           {
+                if(expA>expB)
+                {
+                    c.setVpf1(k, a.getVpf1(i));
+                    i++;
+                    k++;
+                }
+                else
+                {
+                    c.setVpf1(k, b.getVpf1(j));
+                    j++;
+                    k++;
+                }
+           }
+        }
         return c;
     }//Fin suma  
     
@@ -338,23 +347,26 @@ public class Forma1 {
     }//Fin BorrarTermino
     public Forma1 multiplicacionF1(Forma1 a, Forma1 b)//Mala
     {        
-        int expA=0, expB=0, expR=0, posR=0;
-        int coe;
-        Forma1 c = new Forma1(a.getVpf1(0)+b.getVpf1(0));
-        
-        for (int i = 1; i <(b.getVpf1(0)+2); i++) 
-        {
-            expB=b.getDu()-i;
-            for (int j = 1; j<(a.getVpf1(0)+2); j++) 
-            {
-                expA=a.getDu()-j;
-                expR=expA+expB;
-                c.setN(expR+1);
-                coe=a.getVpf1(j)*b.getVpf1(i);
-                posR=c.getDu()-expR;
-                c.Vpf1[posR]=posR+coe;
+        int expA, expB, i=1, j=1 ,k=1;
+        Forma1 c= new Forma1(a.getDu()+b.getDu());
+        c.setVpf1(0,a.getVpf1(0)+b.getVpf1(0));
+        while (i<a.getN())
+        {   
+            k=1;
+            while (j<b.getN()) 
+            {                
+                
+                c.setVpf1(k,(c.getVpf1(k)+(a.getVpf1(i)*b.getVpf1(j))));
+                j++;
+                k++;
+            }
+            if (i==a.getN()) {
+                i=1;
+            }else{
+                i++;
             }
         }
+        this.mostrar(c);
         return c;
  
     }//FIn multiplicacion

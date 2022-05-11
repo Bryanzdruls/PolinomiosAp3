@@ -50,7 +50,7 @@ public class PolinomioAp3 {
                             Pf1_2.redimensionar(Pf1_2);
                             System.out.println("\nPolinomio f1 2");
                             Pf1_2.mostrar(Pf1_2);
-                            Pf1_3.sumar(Pf1, Pf1_2, Pf1_3);
+                            Pf1_3.sumar(Pf1, Pf1_2);
                             System.out.println("Suma: ");
                             Pf1_3.mostrar(Pf1_3);
                             break;
@@ -241,7 +241,7 @@ public class PolinomioAp3 {
                                 Pf3_2.InsertarFinal(Vi[j], Vi[j+1],Pf3_2);
                                 j++;                               
                             }
-                            Pf3_3.multiplicar(Pf3, Pf3_2);
+                            Pf3_3 = Pf3_3.multiplicar(Pf3, Pf3_2);
                             System.out.println("\n Multiplicacion: \n");
                             Pf3_3.mostrar(Pf3_3);
                             break;
